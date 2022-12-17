@@ -10,7 +10,7 @@ date: '2022-12-16'
 
 #### 2. `useSetRecoilState()` state를 변경하기만 하는 컴포넌트
 
-```jsx
+```typescript
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cookieState } from '../../state';
 
@@ -20,7 +20,7 @@ const setCookies = useSetRecoilState(cookieState);
 
 #### 3. `useResetRecoilState()` 인자로 받아온 atom의 state를 default 값으로 **reset** 시키는 역할
 
-```jsx
+```typescript
 const resetCookies = useResetRecoilState(cookieState);
 ```
 
@@ -32,7 +32,7 @@ const resetCookies = useResetRecoilState(cookieState);
 
 #### 2. 서버와 통신하는 비동기 값(response.data)을 자신의 값으로 가질 수 있음
 
-```tsx
+```typescript
 function selector<T>({
   key: string,
 
@@ -59,7 +59,7 @@ function selector<T>({
 
 state.js
 
-```tsx
+```typescript
 export const cookieState = atom({
   key: 'cookieState',
   default: [],
@@ -88,7 +88,7 @@ export const getCookieSelector = selector({
 - **set**: writeable 한 state 값을 변경할 수 있는 함수를 return 하는 곳
   selector는 **read-only** 한 return 값(`RecoilValue`)만 가지기 때문에 set으로는 **writeable**한 atom 의 `RecoilState` 만 설정 가능
 
-```tsx
+```typescript
 set: ({ set }, newValue) => {
   set(getCookieSelector, newValue);
 }; // incorrect : cannot allign itself
@@ -98,7 +98,7 @@ set: ({ set }, newValue) => {
 }; // correct : can allign another upstream atom that is writeable RecoilState
 ```
 
-```tsx
+```typescript
 const [cookie, setCookie] = useRecoilState(cookieState);
 ```
 
@@ -106,7 +106,7 @@ const [cookie, setCookie] = useRecoilState(cookieState);
 
 ### Suspense, 비동기 상태 처리
 
-```tsx
+```typescript
 import React, { Suspense } from 'react';
 import { Cookies } from '../components';
 
@@ -127,7 +127,7 @@ export default App;
 
 ### Suspense대신 Recoil의 Loadable을 사용할 수도 있다
 
-```tsx
+```typescript
 import { getCookieSeletor } from '../../reocil';
 import { useRecoilState, useRecoilValueLoadable } from 'recoil';
 
@@ -188,11 +188,11 @@ export default Cookies;
 
 **파라미터를 반영한 비동기 데이터 : selectorFamily()**
 
-```tsx
+```typescript
 `https://baseUrl.com/type=${apiTypes}`;
 ```
 
-```tsx
+```typescript
 // state.jsx
 
 export const githubRepo = selectorFamily({
@@ -208,7 +208,7 @@ export const githubRepo = selectorFamily({
 });
 ```
 
-```tsx
+```typescript
 // Github.jsx
 
 import { useRecoilValue } from 'recoil';
